@@ -49,17 +49,19 @@ const PostReview = () => {
 
     console.log(jsoninput);
     const res = await fetch(review_url, {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: jsoninput,
-  });
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: jsoninput,
+    });
 
-  const json = await res.json();
-  if (json.status === 200) {
-      window.location.href = window.location.origin+"/dealer/"+id;
-  }
+    const json = await res.json();
+    console.log("json response:", json);
+    if (json.status === 200) {
+        window.location.href = window.location.origin+"/dealer/"+id;
+    }
 
   }
   const get_dealer = async ()=>{
