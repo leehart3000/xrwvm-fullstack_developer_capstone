@@ -15,7 +15,12 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
 from .models import CarMake, CarModel
-from .restapis import get_request, analyze_review_sentiments, post_review, searchcars_request
+from .restapis import (
+    get_request,
+    analyze_review_sentiments,
+    post_review,
+    searchcars_request
+)
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -182,22 +187,22 @@ def get_inventory(request, dealer_id):
     if (dealer_id):
         if 'year' in data:
             endpoint = ("/carsbyyear/" +
-                str(dealer_id) + "/" + str(data['year']))
+                        str(dealer_id) + "/" + str(data['year']))
         elif 'make' in data:
             endpoint = ("/carsbymake/" +
-                str(dealer_id) + "/" + str(data['make']))
+                        str(dealer_id) + "/" + str(data['make']))
         elif 'model' in data:
             endpoint = ("/carsbymodel/" +
-                str(dealer_id) + "/" + str(data['model']))
+                        str(dealer_id) + "/" + str(data['model']))
         elif 'mileage' in data:
             endpoint = ("/carsbymaxmileage/" +
-                str(dealer_id) + "/" + str(data['mileage']))
+                        str(dealer_id) + "/" + str(data['mileage']))
         elif 'price' in data:
             endpoint = ("/carsbyprice/" +
-                str(dealer_id) + "/" + str(data['price']))
+                        str(dealer_id) + "/" + str(data['price']))
         else:
             endpoint = "/cars/" + str(dealer_id)
- 
+
         cars = searchcars_request(endpoint)
         return JsonResponse({"status": 200, "cars": cars})
     else:
